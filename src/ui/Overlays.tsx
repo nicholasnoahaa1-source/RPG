@@ -84,6 +84,7 @@ export function SettingsDialog() {
 
 const KEYS: [string, string][] = [
   ["Q W E R", "Navegar, mover, girar, escalar"],
+  ["T", "Editar vértices (clique seleciona, Shift soma)"],
   ["1 a 5", "Visões frontal, traseira, direita, esquerda, topo"],
   ["Shift + 1 a 5", "Modos: standard, holo, wire, x-ray, engenharia"],
   ["F / Home", "Enquadrar seleção / tudo"],

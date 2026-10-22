@@ -24,6 +24,7 @@ Seleção por peça, árvore, Exploded View e propriedades dependem de o arquivo
 | Ação | Atalho |
 |---|---|
 | Navegar / mover / girar / escalar peça | `Q` `W` `E` `R` |
+| Editar vértices da malha selecionada | `T` |
 | Visões frontal, traseira, direita, esquerda, topo | `1` a `5` |
 | Modos standard, holo, wire, x-ray, engenharia | `Shift` + `1` a `5` |
 | Enquadrar seleção / tudo | `F` / `Home` (ou duplo clique na peça) |
@@ -61,14 +62,15 @@ Implementado e verificado (build, tipos, testes unitários e teste de navegador 
 - seleção por clique, hover, contorno, gizmos de mover/girar/escalar separados do modo de navegação, edição numérica, travar, ocultar, isolar, desfazer e refazer
 - modos standard, holographic, wireframe, x-ray e engineering (caixas delimitadoras e medidas reais)
 - Exploded View radial com slider, pausa e reversão
+- **Editor de geometria (v1):** mover vértices (seleção por clique, Shift soma, gizmo, vértices na mesma posição se movem juntos, normais recalculadas) e booleanas entre duas malhas (união, subtração, interseção, com `three-bvh-csg`), ambos com desfazer e refazer
 - salvar e restaurar sessão (câmera, transformações, visibilidade, travas) no `localStorage`; reset do projeto
 - qualidade Low a Ultra com ajuste automático por FPS, loop sob demanda em Low, tratamento de perda de contexto WebGL
 - inicialização cinematográfica interrompível, respeito a `prefers-reduced-motion`, navegação por teclado
 
 ## Limitações e pendências (não concluído)
 
-- **Sem armadura.** Nenhum modelo do Homem de Ferro está no repositório. O reator ARC só ganha luz própria se o arquivo tiver uma malha com "arc", "reactor" ou "reator" no nome.
-- **Editor de geometria (vértices, modelagem)**: pedido, ainda **não iniciado**. Falta definir quais operações entram.
+- **Sem armadura embutida.** O app é um editor de modelos GLB em geral; o reator ARC só ganha luz própria se o arquivo tiver uma malha com "arc", "reactor" ou "reator" no nome.
+- **Editor de geometria:** só mover vértices e booleanas. Extrudar, esculpir, adicionar ou remover vértices e faces **não existem**. Edições de vértices e booleanas valem na sessão (com desfazer) mas **não são salvas** em `localStorage` e **não há exportação** do modelo editado (exportar GLB depende de decisão sua). Limite de 50.000 vértices únicos por malha editada; malhas com skinning, morph targets ou posições quantizadas não são editáveis. Booleanas pedem malhas fechadas para resultado confiável (o painel avisa quando a malha é aberta) e rodam de forma síncrona.
 - **Oclusão ambiental**: não implementada. Há sombra de contato e bloom.
 - **Instancing, LOD e compressão de textura** não foram aplicados: dependem do modelo real.
 - Malhas com skinning aparecem na pose de bind nos modos holographic e x-ray.

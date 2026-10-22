@@ -207,6 +207,7 @@ export default function ModelRoot() {
   const set = useWorkstation((s) => s.set);
   const onClick = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
+    if (useWorkstation.getState().interaction === "vertex") return;
     select(e.object.uuid);
   };
   const onOver = (e: ThreeEvent<PointerEvent>) => {

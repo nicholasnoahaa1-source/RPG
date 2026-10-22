@@ -25,8 +25,16 @@ class Registry {
   modelSize = 1;
   /** intensidade de desmontagem atualmente aplicada */
   explodeApplied = 0;
+  /** geometrias substituídas por edição, liberadas junto com o modelo */
+  disposables = new Set<BufferGeometry>();
 
   clear() {
+    this.parts.forEach((rec) => {
+      const m = rec.object as Mesh;
+      if (m.isMesh) m.geometry?.dispose();
+    });
+    this.disposables.forEach((g) => g.dispose());
+    this.disposables.clear();
     this.root = null;
     this.parts.clear();
     this.history.clear();

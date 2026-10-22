@@ -12,6 +12,7 @@ import Gizmo from "./Gizmo";
 import Stage from "./Stage";
 import Post from "./Post";
 import Engineering from "./Engineering";
+import VertexEditor from "./VertexEditor";
 
 const DPR: Record<Quality, [number, number]> = { low: [1, 1], medium: [1, 1.5], high: [1, 2], ultra: [1, 2.5] };
 const CAMERA = { fov: 35, near: 0.05, far: 200, position: [4, 3, 5] } as const;
@@ -42,6 +43,11 @@ function Invalidator() {
 
 function ContextGuard() {
   const gl = useThree((s) => s.gl);
+  const camera = useThree((s) => s.camera);
+  useEffect(() => {
+    const dbg = (window as unknown as { __ws?: Record<string, unknown> }).__ws;
+    if (dbg) dbg.camera = camera;
+  }, [camera]);
   useEffect(() => {
     const el = gl.domElement;
     const lost = (e: Event) => {
@@ -79,7 +85,9 @@ export default function Scene() {
       dpr={DPR[quality]}
       camera={CAMERA as unknown as { fov: number }}
       gl={GL}
-      onPointerMissed={() => useWorkstation.getState().select(null)}
+      onPointerMissed={() => {
+        if (useWorkstation.getState().interaction !== "vertex") useWorkstation.getState().select(null);
+      }}
     >
       <PerformanceMonitor flipflops={3} onDecline={() => step(-1)} onIncline={() => step(1)} />
       <FpsMeter />
@@ -90,6 +98,7 @@ export default function Scene() {
       <ViewModes />
       <Engineering />
       <Gizmo />
+      <VertexEditor />
       <CameraRig />
       <Post />
     </Canvas>

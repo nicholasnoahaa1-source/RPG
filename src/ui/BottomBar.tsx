@@ -11,6 +11,7 @@ const TOOLS: { id: InteractionMode; label: string; key: string; tip: string }[] 
   { id: "translate", label: "MOVER", key: "W", tip: "Gizmo de translação da peça selecionada" },
   { id: "rotate", label: "GIRAR", key: "E", tip: "Gizmo de rotação da peça selecionada" },
   { id: "scale", label: "ESCALAR", key: "R", tip: "Gizmo de escala da peça selecionada" },
+  { id: "vertex", label: "VÉRTICES", key: "T", tip: "Editar vértices da malha selecionada" },
 ];
 const VIEWS: { id: CameraView; label: string; key: string }[] = [
   { id: "front", label: "FRONT", key: "1" },

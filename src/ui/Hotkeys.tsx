@@ -49,6 +49,7 @@ export default function Hotkeys() {
         case "w": setInteraction("translate"); break;
         case "e": setInteraction("rotate"); break;
         case "r": setInteraction("scale"); break;
+        case "t": setInteraction("vertex"); break;
         case "f": st.camera({ kind: st.selectedId ? "frame-selection" : "frame-all" }); break;
         case "home": st.camera({ kind: "frame-all" }); break;
         case "h": if (st.selectedId) toggleHidden(st.selectedId); break;

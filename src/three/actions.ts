@@ -20,7 +20,7 @@ export function setViewMode(mode: ViewMode, fromUser = true) {
 }
 
 export function setInteraction(mode: InteractionMode) {
-  const label = { navigate: "NAVEGAÇÃO", translate: "MOVER", rotate: "GIRAR", scale: "ESCALAR" }[mode];
+  const label = { navigate: "NAVEGAÇÃO", translate: "MOVER", rotate: "GIRAR", scale: "ESCALAR", vertex: "VÉRTICES" }[mode];
   useWorkstation.getState().set({ interaction: mode, status: `FERRAMENTA ${label}` });
 }
 

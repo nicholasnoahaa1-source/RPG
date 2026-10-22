@@ -75,3 +75,29 @@ describe("explode", () => {
     expect(x).toBeGreaterThan(0.999);
   });
 });
+
+import { BoxGeometry } from "three";
+import { closedInfo, weldPositions } from "@/lib/mesh";
+
+describe("mesh", () => {
+  const box = () => {
+    const g = new BoxGeometry(1, 1, 1);
+    const pos = g.getAttribute("position");
+    return { g, pos, idx: g.getIndex()! };
+  };
+  it("solda os 24 vértices de uma caixa em 8 posições únicas", () => {
+    const { pos } = box();
+    const w = weldPositions(pos.array, pos.count);
+    expect(w.members.length).toBe(8);
+    expect(w.members.every((m) => m.length === 3)).toBe(true);
+  });
+  it("reconhece caixa fechada e detecta buraco", () => {
+    const { pos, idx } = box();
+    const w = weldPositions(pos.array, pos.count);
+    expect(closedInfo(idx.array, pos.count, w).closed).toBe(true);
+    const open = Array.from(idx.array).slice(3);
+    const info = closedInfo(open, pos.count, w);
+    expect(info.closed).toBe(false);
+    expect(info.openEdges).toBeGreaterThan(0);
+  });
+});

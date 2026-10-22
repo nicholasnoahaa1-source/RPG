@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { Box3, Euler, Mesh, Vector3 } from "three";
 import { useWorkstation } from "@/store/workstation";
 import { registry } from "@/three/registry";
+import { BooleanPanel, VertexPanel } from "./EditPanels";
 import { resetPart, setPartTransform, toggleHidden, toggleIsolate, toggleLocked } from "@/three/actions";
 
 type V3 = [number, number, number];
@@ -56,6 +57,7 @@ export default function RightPanel() {
   const locked = useWorkstation((s) => (s.selectedId ? !!s.locked[s.selectedId] : false));
   const hidden = useWorkstation((s) => (s.selectedId ? !!s.hidden[s.selectedId] : false));
   const isolated = useWorkstation((s) => s.isolatedId === s.selectedId && s.selectedId !== null);
+  const interaction = useWorkstation((s) => s.interaction);
   const reduce = useReducedMotion();
 
   const [, force] = useState(0);
@@ -165,6 +167,9 @@ export default function RightPanel() {
                 </dl>
               </section>
             )}
+
+            {interaction === "vertex" && info.isMesh && <VertexPanel />}
+            {info.isMesh && <BooleanPanel aId={rec.id} />}
 
             <section>
               <h3>AÇÕES</h3>

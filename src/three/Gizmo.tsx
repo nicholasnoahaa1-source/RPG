@@ -34,7 +34,7 @@ export default function Gizmo() {
   const rec = registry.get(selectedId);
   const before = useRef<Snapshot | null>(null);
 
-  if (!rec || interaction === "navigate" || locked || !rec.object.visible) return null;
+  if (!rec || interaction === "navigate" || interaction === "vertex" || locked || !rec.object.visible) return null;
 
   const onDown = () => {
     before.current = snap(rec);

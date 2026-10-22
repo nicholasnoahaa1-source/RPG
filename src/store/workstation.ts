@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export type ViewMode = "standard" | "holographic" | "wireframe" | "xray" | "engineering";
-export type InteractionMode = "navigate" | "translate" | "rotate" | "scale";
+export type InteractionMode = "navigate" | "translate" | "rotate" | "scale" | "vertex";
 export type Quality = "low" | "medium" | "high" | "ultra";
 export type LoadState = "empty" | "loading" | "ready" | "error";
 export type CameraView = "front" | "back" | "left" | "right" | "top" | "iso";
@@ -79,6 +79,8 @@ interface State {
 
   history: { canUndo: boolean; canRedo: boolean; undoLabel: string | null; redoLabel: string | null };
   transformTick: number;
+  vertexSel: number;
+  vertexTotal: number;
 
   leftOpen: boolean;
   rightOpen: boolean;
@@ -145,6 +147,8 @@ const initial: State = {
 
   history: { canUndo: false, canRedo: false, undoLabel: null, redoLabel: null },
   transformTick: 0,
+  vertexSel: 0,
+  vertexTotal: 0,
 
   leftOpen: true,
   rightOpen: true,
